@@ -20,10 +20,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotBlank(message = "El nombre no puede estar vacío")
+    @NotBlank(message = "Name cannot be empty")
     private String name;
 
-    @NotNull(message = "El precio no puede ser nulo")
-    @Positive(message = "El precio debe ser un número positivo")
+    @NotNull(message = "Price cannot be null")
+    @Positive(message = "Price must be a positive number")
     private Double price;
 }
