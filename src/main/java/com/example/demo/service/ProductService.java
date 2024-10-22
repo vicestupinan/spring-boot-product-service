@@ -1,9 +1,12 @@
 package com.example.demo.service;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,8 +20,9 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
     
-    public ResponseEntity<List<Product>>findAll(){
-        List<Product> products = productRepository.findAll();
+    public ResponseEntity<Slice<Product>>findAll(int page, int size, String sort){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+        Slice<Product> products = productRepository.findAll(pageable);
         return ResponseEntity.status(HttpStatus.OK.value()).body(products);
     }
 
