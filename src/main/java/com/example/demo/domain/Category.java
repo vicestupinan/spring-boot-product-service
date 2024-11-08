@@ -11,33 +11,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "category")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotBlank(message = "Name cannot be empty")
     private String name;
-
-    @NotNull(message = "Price cannot be null")
-    @Positive(message = "Price must be a positive number")
-    private Double price;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    @NotNull(message = "Category cannot be null")
-    private Category category;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

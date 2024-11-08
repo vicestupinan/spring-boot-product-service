@@ -15,41 +15,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.domain.Product;
-import com.example.demo.service.ProductService;
+import com.example.demo.domain.Category;
+import com.example.demo.service.CategoryService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/products")
-public class ProductController {
+@RequestMapping("/api/categories")
+public class CategoryController {
     @Autowired
-    private ProductService productService;
+    private CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<Slice<Product>> getAllProducts(@RequestParam(required = false, defaultValue = "0") int page,
+    public ResponseEntity<Slice<Category>> getAllProducts(@RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "5") int size,
             @RequestParam(required = false, defaultValue = "id") String sort) {
-        return productService.findAll(page, size, sort);
+        return categoryService.findAll(page, size, sort);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable UUID id) {
-        return productService.findById(id);
+    public ResponseEntity<Category> getProductById(@PathVariable UUID id) {
+        return categoryService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Product> saveProduct(@Valid @RequestBody Product product) {
-        return productService.save(product);
+    public ResponseEntity<Category> saveProduct(@Valid @RequestBody Category category) {
+        return categoryService.save(category);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product, @PathVariable UUID id) {
-        return productService.update(id, product);
+    public ResponseEntity<Category> updateProduct(@Valid @RequestBody Category category, @PathVariable UUID id) {
+        return categoryService.update(id, category);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
-        return productService.delete(id);
+        return categoryService.delete(id);
     }
 }

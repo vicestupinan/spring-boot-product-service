@@ -19,25 +19,27 @@ import com.example.demo.repository.ProductRepository;
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
-    
-    public ResponseEntity<Slice<Product>>findAll(int page, int size, String sort){
+
+    public ResponseEntity<Slice<Product>> findAll(int page, int size, String sort) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
         Slice<Product> products = productRepository.findAll(pageable);
         return ResponseEntity.status(HttpStatus.OK.value()).body(products);
     }
 
-    public ResponseEntity<Product>findById(UUID id){
-        Product product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product Not Found by id " + id));
+    public ResponseEntity<Product> findById(UUID id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product Not Found by id " + id));
         return ResponseEntity.status(HttpStatus.OK.value()).body(product);
     }
 
-    public ResponseEntity<Product>save(Product product){
+    public ResponseEntity<Product> save(Product product) {
         Product savedProduct = productRepository.save(product);
         return ResponseEntity.status(HttpStatus.CREATED.value()).body(savedProduct);
     }
 
-    public ResponseEntity<Product>update(UUID id, Product product){
-        Product existingProduct = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product Not Found by id " + id));
+    public ResponseEntity<Product> update(UUID id, Product product) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product Not Found by id " + id));
 
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
@@ -45,8 +47,9 @@ public class ProductService {
         return ResponseEntity.status(HttpStatus.OK.value()).body(existingProduct);
     }
 
-    public ResponseEntity<Void>delete(UUID id){
-        Product product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product Not Found by id " + id));
+    public ResponseEntity<Void> delete(UUID id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product Not Found by id " + id));
         productRepository.delete(product);
         return ResponseEntity.status(HttpStatus.NO_CONTENT.value()).build();
     }
