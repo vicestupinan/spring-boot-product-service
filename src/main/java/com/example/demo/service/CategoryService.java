@@ -41,7 +41,10 @@ public class CategoryService {
     public ResponseEntity<Category> update(UUID id, Category category) {
         Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category Not Found by id " + id));
+
         existingCategory.setName(category.getName());
+        categoryRepository.save(existingCategory);
+
         return ResponseEntity.status(HttpStatus.OK.value()).body(existingCategory);
     }
 

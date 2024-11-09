@@ -42,7 +42,8 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product Not Found by id " + id));
 
         existingProduct.setName(product.getName());
-        existingProduct.setPrice(product.getPrice());
+        existingProduct.setCategory(product.getCategory());
+        productRepository.save(existingProduct);
 
         return ResponseEntity.status(HttpStatus.OK.value()).body(existingProduct);
     }
