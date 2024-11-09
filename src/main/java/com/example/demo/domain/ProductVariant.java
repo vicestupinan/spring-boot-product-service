@@ -33,6 +33,9 @@ public class ProductVariant {
 
     private String color;
     private String size;
+
+    @NotNull(message = "Stock cannot be null")
+    @Positive(message = "Stock must be a positive number")
     private Integer stock;
 
     @NotNull(message = "Price cannot be null")
